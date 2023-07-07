@@ -5,6 +5,7 @@ import com.karinedias.recipesapp.repository.RecipeRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,11 +30,10 @@ class RecipesAppApplicationTests {
 		assertEquals(recipesFound.size(), 13);
 	}
 
-//	@Test
-//	public void findMostLikedRecipe_shouldReturnExpected() throws Exception {
-//		Optional<Recipe> topRecipe = recipeRepository.findTopByorderByLikesDesc();
-//		System.out.println("Top recipe is" + topRecipe);
-//	}
-	//findTopByLikesOrderByLikesDesc
+	@Test
+	public void findMostLikedRecipe_shouldReturnExpected() throws Exception {
+		Recipe mostLikedRecipe = recipeRepository.findTopByOrderByLikesDesc();
+		assertEquals(mostLikedRecipe.getLikes(), 19);
+	}
 
 }

@@ -1,6 +1,7 @@
 package com.karinedias.recipesapp.repository;
 
 import com.karinedias.recipesapp.model.Recipe;
+import org.springframework.data.domain.Page;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,7 @@ public interface RecipeRepository extends MongoRepository<Recipe, String> {
 
     Optional<Recipe> findByIdRecipe(long id);
 
-    //Recipe findTopByorderByLikesDesc();
+    Recipe findTopByOrderByLikesDesc();
 
 }
 
