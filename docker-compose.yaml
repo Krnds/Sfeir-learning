@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mongo:
+    image:
+      mongo:6.0-jammy
+    ports:
+      - '27019:27017'
+    environment:
+#      MONGO_INITDB_ROOT_USERNAME: admin
+#      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: recipes
+    volumes:
+      - mongo:/data/db:rw
+      - ./db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    user: mongodb
+    networks:
+      - my-app
+  app:
+    platform: linux/amd64
+    depends_on:
+      - mongo
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+    image: recipes-app:latest
+    container_name: recipes-app
+    ports:
+      - '8090:8080'
+    networks:
+      - my-app
+
+networks:
+  my-app:
+    driver: bridge
+volumes:
+  mongo:
+  app:
