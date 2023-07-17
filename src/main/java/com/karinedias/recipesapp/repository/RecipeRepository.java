@@ -12,6 +12,9 @@ public interface RecipeRepository extends MongoRepository<Recipe, String> {
 
     List<Recipe> findAll();
 
+    @Override
+    <S extends Recipe> List<S> saveAll(Iterable<S> entities);
+
     Optional<Recipe> findByIdRecipe(long id);
 
     Recipe findTopByOrderByLikesDesc();
